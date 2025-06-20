@@ -2,9 +2,9 @@
 
 This repository contains code for H-QuEST: Accelerating Query-by-Example Spoken Term Detection with Hierarchical Indexing featuring:
 
-- Feature extraction from audio using Wav2Vec2 (`feature_extraction.py`)
-- HQuEST retrieval with HNSW + Smith-Waterman (`hquest_retrieval.py`)
-- Baseline retrieval methods including TF-IDF, DTW, and a BigTable-style inverted index (`baseline_retrievals.py`)
+- Feature extraction from audio using Wav2Vec2 (`src/feature_extraction.py`)
+- HQuEST retrieval with HNSW + Smith-Waterman (`src/hquest_retrieval.py`)
+- Baseline retrieval methods including TF-IDF, DTW, and a BigTable-style inverted index (`src/baseline_retrievals.py`)
 - Main pipeline to run retrieval and output results (`main.py`)
 
 ## Usage
