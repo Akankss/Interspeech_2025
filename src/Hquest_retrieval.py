@@ -8,13 +8,20 @@ def smith_waterman(seq1, seq2):
     score = pairwise2.align.localxx(seq1_str, seq2_str, score_only=True)
     return score
 
-def build_hnsw_index(tfidf_matrix, dim):
+def build_hnsw_index(tfidf_matrix, dim, index_path="hnsw_index.bin"):
     index = hnswlib.Index(space='cosine', dim=dim)
-    index.init_index(max_elements=tfidf_matrix.shape[0], ef_construction=200, M=16)
-    index.add_items(tfidf_matrix.toarray())
+    if os.path.exists(index_path):
+        print(f"[INFO] Loading existing HNSW index from {index_path}")
+        index.load_index(index_path, max_elements=tfidf_matrix.shape[0])
+    else:
+        print(f"[INFO] Building new HNSW index...")
+        index.init_index(max_elements=tfidf_matrix.shape[0], ef_construction=200, M=16)
+        index.add_items(tfidf_matrix.toarray())
+        index.save_index(index_path)
+        print(f"[INFO] HNSW index saved to {index_path}")
     index.set_ef(50)
     return index
-
+    
 def retrieve_hnsw(index, query_tokens, vectorizer, top_k=50):
     query_vector = vectorizer.transform([query_tokens]).toarray()
     labels, distances = index.knn_query(query_vector, k=top_k)
