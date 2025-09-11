@@ -21,7 +21,7 @@ def run_retrieval(audio_csv_path, query_csv_path, output_csv_path, top_k=10):
     tfidf_matrix = vectorizer.fit_transform(audio_sequences)
 
     # Build HNSW index for HQuEST retrieval
-    hnsw_index = build_hnsw_index(tfidf_matrix, tfidf_matrix.shape[1])
+    hnsw_index = build_hnsw_index(tfidf_matrix, tfidf_matrix.shape[1], index_path="hnsw_index.bin")
 
     # Build BigTable inverted index for baseline retrieval
     bigtable_index = BigTableInvertedIndex()
