@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import hnswlib
 from Bio import pairwise2
